@@ -5,3 +5,7 @@
 *.userprefs
 *.DS_Store
 *.userprefs
+*.crc
+*.version
+*.dat
+*.bin
