@@ -57,6 +57,6 @@
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Novell\Xamarin.Android.Bindings.targets" />
   <ItemGroup>
-    <InputJar Include="Jars\urbanairship-lib-2.0.0.jar" />
+    <InputJar Include="Jars\urbanairship-lib-2.0.1.jar" />
   </ItemGroup>
 </Project>
