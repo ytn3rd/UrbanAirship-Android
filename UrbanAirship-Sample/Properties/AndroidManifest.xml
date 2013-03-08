@@ -1,0 +1,48 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android" package="com.urbanairship.push.sample" android:installLocation="auto" android:versionCode="1" android:versionName="1.0">
+	<uses-sdk android:targetSdkVersion="8" />
+	<!-- REQUIRED PERMISSIONS (for Urban Airship GCM) -->
+	<uses-permission android:name="android.permission.INTERNET" />
+	<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+	<uses-permission android:name="android.permission.VIBRATE" />
+	<!-- GCM requires a Google account. -->
+	<uses-permission android:name="android.permission.GET_ACCOUNTS" />
+	<!-- Keeps the processor from sleeping when a message is received. -->
+	<uses-permission android:name="android.permission.WAKE_LOCK" />
+	<!-- This app has permission to register with GCM and receive message -->
+	<uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
+	<!-- MODIFICATION REQUIRED - Replace "com.urbanairship.push.sample" with your package name -->
+	<permission android:name="com.urbanairship.push.sample.permission.C2D_MESSAGE" android:protectionLevel="signature" />
+	<uses-permission android:name="com.urbanairship.push.sample.permission.C2D_MESSAGE" />
+	<uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+	<!-- The two elements above ensure that only this application can receive the messages and registration result -->
+	<!--  END Urban Airship Required Permissions -->
+	<application android:label="UA Sample">
+		<activity android:name="com.urbanairship.push.sample.PushPreferencesActivity" />
+		<activity android:name="com.urbanairship.push.sample.LocationActivity" />
+		<!-- REQUIRED for Urban Airship GCM-->
+		<receiver android:name="com.urbanairship.CoreReceiver" />
+		<receiver android:name="com.urbanairship.push.GCMPushReceiver" android:permission="com.google.android.c2dm.permission.SEND">
+			<intent-filter>
+				<action android:name="com.google.android.c2dm.intent.RECEIVE" />
+				<action android:name="com.google.android.c2dm.intent.REGISTRATION" />
+				<!-- MODIFICATION REQUIRED - Use your package name as the category -->
+				<category android:name="com.urbanairship.push.sample" />
+			</intent-filter>
+			<!--  REQUIRED for detecting when the application is upgraded so it can request a new GCM ID -->
+			<intent-filter>
+				<action android:name="android.intent.action.PACKAGE_REPLACED" />
+				<data android:scheme="package" />
+			</intent-filter>
+		</receiver>
+		<service android:name="com.urbanairship.push.PushService" android:label="Push Notification Service" />
+		<service android:name="com.urbanairship.push.PushWorkerService" android:label="Push Notification Worker Service" />
+		<service android:name="com.urbanairship.analytics.EventService" android:label="Event Service" />
+		<!-- This is required for persisting preferences related to push and location -->
+		<!-- MODIFICATION REQUIRED - Use your package name + ".urbanairship.provider" in the android:authorities -->
+		<provider android:name="com.urbanairship.UrbanAirshipProvider" android:authorities="com.urbanairship.push.sample.urbanairship.provider" android:exported="false" android:multiprocess="true" />
+		<!-- END OF REQUIRED ITEMS -->
+		<!-- OPTIONAL (for segments support) -->
+		<service android:name="com.urbanairship.location.LocationService" android:label="Segments Service" />
+	</application>
+</manifest>
